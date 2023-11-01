@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Current Day</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css"
+    />
+  </head>
+  <style>
+    * {
+      box-sizing: border-box;
+      --dark: #16151d;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: sans-serif;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: antiquewhite;
+      color: #5f5a5a;
+      text-align: center;
+      z-index: 500;
+    }
+
+    h1 {
+      font-size: 2em;
+      text-decoration: underline;
+    }
+    h2 {
+      font-size: 1.5em;
+    }
+    .switch {
+      position: relative;
+      display: inline-block;
+      width: 66px;
+      height: 34px;
+    }
+    .switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #fff;
+      -webkit-transition: 0.4s;
+      transition: 0.4s;
+      border: solid 1px #d2d2d2;
+    }
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 27px;
+      width: 26px;
+      left: 4px;
+      bottom: 3px;
+      background-color: #ffc700;
+      -webkit-transition: 0.4s;
+      border: solid 1px #d2d2d2;
+      transition: 0.4s;
+    }
+    span i {
+      font-size: 21px;
+      padding-top: 0.5rem;
+    }
+    input:checked + .slider {
+      background-color: #d2d2d2;
+    }
+    input:focus + .slider {
+      box-shadow: 0 0 1px #d2d2d2;
+    }
+    input:checked + .slider:before {
+      transform: translateX(28px);
+      background-color: #5a5a5a;
+    }
+
+    .slider.round {
+      border-radius: 34px;
+    }
+    .slider::before {
+      border-radius: 50%;
+    }
+  </style>
+  <body>
+    <div class="top">
+      <label class="switch">
+        <input type="checkbox" / id="toggle">
+        <span class="slider round">
+          <i class="bi bi-cloud-moon" id="moon"></i>
+          <i class="bi bi-brightness-alt-high-fill" id="sun"></i>
+        </span>
+      </label>
+    </div>
+    <div>
+      <h1>Java Script Current Day</h1>
+
+      <div class="box">
+        <h2 id="today"></h2>
+        <h2 id="currentTime"></h2>
+      </div>
+    </div>
+    <script>
+      const toggleSwitch = document.querySelector("#toggle");
+      const bodyBg = document.querySelector("body");
+      const sun = document.querySelector("#sun");
+      const moon = document.querySelector("#moon");
+
+      //function switch background
+      const switchBg = () => {
+        if(toggleSwitch.checked === true) {
+          bodyBg.style.background = "#16151d";
+          bodyBg.style.color = "#FFF";
+          moon.style.color = "#5f5a5a";
+        }else{
+          bodyBg.style.background = "antiquewhite";
+          bodyBg.style.color = "#5f5a5a";
+          sun.style.color = "#ffc700";
+        }
+      };
+      toggleSwitch.addEventListener("change", switchBg);
+
+
+      const getCurrentDayAndTime = () => {
+        let today = new Date();
+        // get today and transform to day list
+        // Day list
+        let dayList = [
+          "Sunday",
+          "Monday",
+          "Tuesday",
+          "Wednesday",
+          "Thursday",
+          "Friday",
+          "Saturday",
+        ];
+
+        let day = today.getDay();
+        let hour = today.getHours();
+        const minute = today.getMinutes();
+        const second = today.getSeconds();
+
+        const currentDay = document.querySelector("#today");
+        const currentTime = document.querySelector("#currentTime");
+        currentDay.innerHTML = `Today is : ${dayList[day]}`;
+        // currentTime.innerHTML = `Current Time : ${hour}${prepand} : ${minute} minute : ${second} second`;
+        currentTime.innerHTML = `${hour} : ${minute} : ${second}`;
+      };
+      setInterval(() => {
+        getCurrentDayAndTime();
+      }, 1000);
+    </script>
+  </body>
+</html>
